@@ -1,0 +1,24 @@
+[
+  {
+    "databases": [
+      {
+        "name": "ecoinvent",
+        "version": "3.8",
+        "system model": "cutoff",
+        "available in resources": false
+      },
+      {
+        "name": "cobalt",
+        "available in resources": true,
+        "file name": "cobalt.bw2package"
+      }
+    ],
+    "calculations": [
+      {
+        "demand": {("cobalt", "dfdgfhgf"): 1
+        }
+      },
+      {}
+    ]
+  }
+]
