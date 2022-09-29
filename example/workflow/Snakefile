@@ -1,0 +1,5 @@
+rule chicken_run:
+    conda:
+        "envs/env.yaml"
+    script:
+        "scripts/script.py"
