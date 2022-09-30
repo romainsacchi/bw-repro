@@ -115,7 +115,7 @@ def coolname(bw_module: bw, config:dict=None):
     # bw.MultiMonteCarlo= upgrade_MultiMonteCarlo(config)
     
     # add a custom root to save change
-    bw.repro = { "save": end_record}
+    bw.repro = { "save": lambda : end_record(config["logger_path"])}
     return bw
 
 """
@@ -172,8 +172,8 @@ def test():
     }
     bw = coolname(bw, log_config)
 
-    bw.projects.set_current("ABM_SN")
-    # bw.projects.set_current("my_project")
+    # bw.projects.set_current("ABM_SN")
+    bw.projects.set_current("my_project")
 
     def do_random_lca():
         meth = bw.methods.random()
@@ -186,7 +186,7 @@ def test():
     for _ in range(0, 5):
         do_random_lca()
     
-    bw.repro["save"](log_config["logger_path"])
+    bw.repro["save"]()
 
 if __name__ == "__main__":
     test()
