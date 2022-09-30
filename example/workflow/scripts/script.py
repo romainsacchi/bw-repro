@@ -20,15 +20,18 @@ bw2io.bw2setup()
 
 
 def install_dbs(db):
-    print(f"Importing {db['name']}...")
+
     if db["available in resources"]:
         if all(i in bw2data.databases for i in db["depends on"]):
             # import local db
+            print(f"Importing {db['name']}...")
             bw2io.BW2Package.import_file(
                 RESOURCES_PATH / db["file name"]
             )
+        else:
+            raise ValueError(f"Missing databases in order to import {db['name']}.")
     else:
-        if db["name"] == "ecoinvent":
+        if db["name"] == "ecoinvent" and all(i in bw2data.databases for i in db["depends on"]):
             name = db["name"]
             ver = db["version"]
             system_model = db["system model"]

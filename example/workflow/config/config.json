@@ -5,12 +5,16 @@
         "name": "ecoinvent",
         "version": "3.8",
         "system model": "cutoff",
-        "available in resources": false
+        "available in resources": false,
+        "depends on": ["biosphere3"]
       },
       {
         "name": "cobalt",
         "available in resources": true,
-        "file name": "cobalt.bw2package"
+        "file name": "cobalt.bw2package",
+        "depends on" : [
+            "ecoinvent", "biosphere3"
+          ]
       }
     ],
     "calculations": [

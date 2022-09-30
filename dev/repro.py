@@ -197,9 +197,9 @@ def upgrade_MonteCarloLCA(config):
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
             self.logger = logging.getLogger(config["name"])
-            # self.repro_logger = logging.getLogger(config["name"])
-        def lcia(self, *args, **kwargs):
-            super().lcia(*args,**kwargs)
+        
+        def load_data(self, *args, **kwargs):
+            super().load_data(*args,**kwargs)
             self.logger.info(
                 "Performing LCIA -test-",
                 extra={
