@@ -4,7 +4,8 @@ rule run:
     output:
         "results/results.txt"
     conda:
-        "envs/env.yaml"
+        "envs/environment.yaml"
+    threads: 1
     script:
         "scripts/script.py"
 
