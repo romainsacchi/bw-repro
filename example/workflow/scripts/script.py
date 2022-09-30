@@ -15,7 +15,7 @@ print("Creating project...")
 bw2data.projects.set_current("default")
 
 print("Installing biosphere...")
-
+print(bw2data.databases)
 bw2io.bw2setup()
 
 
@@ -35,10 +35,10 @@ def install_dbs(db):
             name = db["name"]
             ver = db["version"]
             system_model = db["system model"]
-            if f"{name} {ver} {system_model}" not in bw2data.databases:
+            if f"{name} {system_model} {ver}" not in bw2data.databases:
                 # download ei from website
                 eidl.get_ecoinvent(
-                    db_name=f"{name} {ver} {system_model}",
+                    db_name=f"{name} {system_model} {ver}",
                     auto_write=True,
                     version=ver,
                     system_model=system_model,
@@ -66,6 +66,8 @@ def run_lca(lca_setup):
     return lca.score
 
 
+print("Showing databases")
+print(bw2data.databases)
 dbs = config[0]["databases"]
 
 for db in dbs:
@@ -75,10 +77,12 @@ for db in dbs:
         install_dbs(db)
 
 
+random_act = bw2data.Database('cobalt').random()
+print(random_act.key)
+
 print("Running LCA...")
 
 with open(RESULTS_PATH / "results.txt", "w") as f:
     for lca_setup in config[0]["calculations"]:
-        f.write(str(3.0))
-        #f.write(str(run_lca(lca_setup)))
+        f.write(str(run_lca(lca_setup)))
 

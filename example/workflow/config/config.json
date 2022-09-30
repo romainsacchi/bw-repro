@@ -13,7 +13,7 @@
         "available in resources": true,
         "file name": "cobalt.bw2package",
         "depends on" : [
-            "ecoinvent", "biosphere3"
+            "ecoinvent cutoff 3.8", "biosphere3"
           ]
       }
     ],
@@ -21,7 +21,7 @@
       {
         "demand": {
           "database": "cobalt",
-          "code": "dfdgfhgf",
+          "code": "4afbe2c60c0f370b6613cabc7a3c4398",
           "quantity": 1
         }
       }
