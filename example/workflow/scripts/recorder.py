@@ -3,7 +3,10 @@ import os
 from pathlib import Path
 import uuid
 from bw2calc.log_utils import JSONFormatter
+import json
+from subprocess import run
 
+DUMMY_NAME_TO_TRIGGER_LOGGER = "there_is_a_low_probability_that_someone_will_call_a_record_like_that"
 
 """
     Create a file handler to write bw2calc operations into a file.
@@ -33,6 +36,12 @@ def createJSONFileHandler(
 """
 def dump_and_save_environment():
     # Call conda from python ?
+    def conda_list(environment):
+        proc = run(["conda", "list", "--json", "--name", environment],
+                text=True, capture_output=True)
+        return json.loads(proc.stdout)
+    
+    print(conda_list)
     pass
 
 """
@@ -41,6 +50,8 @@ def dump_and_save_environment():
 def clean_json_output(dirpath, filename):
     path_to_dir = Path(dirpath)
     filepath = path_to_dir / f"{filename}.json"
+
+
     with open(filepath, "r") as f_input:
         with open(
             path_to_dir / f"{filename}-calculations.json",
@@ -49,11 +60,17 @@ def clean_json_output(dirpath, filename):
             # Create an array
             f_output.write("[")
             # Append "," at end of each line
-            for line in f_input:
-                f_output.write(f"{line},")
             
-            # TODO: Fix last line (no comma)
-            f_output.write("[")
+            new_lines = list(
+                map(
+                    lambda line: f"{line},",
+                    f_input.readlines()
+                )
+            )
+            new_lines[-1] = new_lines[-1][:-1]
+            for l in new_lines:
+                f_output.write(l)
+            f_output.write("]")
 
 
 """
@@ -67,7 +84,8 @@ def start_record(dirpath, filename):
     
     # setup bw2 logging listener
     handler = createJSONFileHandler(dirpath, filename)
-    pass
+    logger = logging.getLogger("bw2calc")
+    logger.addHandler(handler)
 
 
 """
@@ -81,3 +99,31 @@ def end_record(dirpath, filename):
     clean_json_output(dirpath, filename)
     # TODO: merge environment and calculation files
     pass
+
+
+def test():
+    import brightway2 as bw
+    bw.projects.set_current("my_project")
+    
+    # dummy log config is needed to trigger
+    log_config= {
+        "dirpath":"logs",
+        "name": DUMMY_NAME_TO_TRIGGER_LOGGER
+    }
+
+    def do_random_lca():
+            meth = bw.methods.random()
+            process = bw.Database('ecoinvent36').random()
+            fu = {process: 1}
+            lca = bw.LCA(fu, meth, log_config=log_config)
+            lca.lci()
+            lca.lcia()
+
+    start_record("logs", "test")
+    for _ in range(0,5):
+        do_random_lca()
+
+    end_record("logs", "test")
+
+if __name__ == "__main__":
+    test()
