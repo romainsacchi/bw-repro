@@ -1,8 +1,8 @@
 rule run:
     input:
-        "workflow/config/config.json"
+        "config/config.json"
     output:
-        "workflow/results/results.txt"
+        "results/results.txt"
     conda:
         "envs/env.yaml"
     script:

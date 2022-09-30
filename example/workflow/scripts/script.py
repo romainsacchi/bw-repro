@@ -1,4 +1,7 @@
-import bw2io, bw2data, bw2calc
+import bw2data
+import bw2io
+
+import bw2calc
 import eidl
 from pathlib import Path
 import json
