@@ -17,9 +17,6 @@ def createJSONFileHandler(
     **kwargs
 ):
     path_to_dir = Path(dirpath)
-    # TODO: Check if dirpath exist, if not create it
-    if not path_to_dir.is_dir():
-        os.mkdir(path_to_dir)
     fullpath = path_to_dir / f"{name}.json"
 
     # Create file handler
@@ -34,15 +31,14 @@ def createJSONFileHandler(
 """
     TODO: Read packages version and create needed to create a 'conda-like' environment.
 """
-def dump_and_save_environment():
+def dump_and_save_environment(dirpath, filename):
     # Call conda from python ?
-    def conda_list(environment):
-        proc = run(["conda", "list", "--json", "--name", environment],
+    def conda_env_export():
+        proc = run(["conda", "env", "export", "--json", "--name", os.environ['CONDA_DEFAULT_ENV'], "--no-builds"],
                 text=True, capture_output=True)
         return json.loads(proc.stdout)
-    
-    print(conda_list)
-    pass
+    with open(Path(dirpath) / f"{filename}-conda-environment.json", "w") as f:
+        json.dump(conda_env_export(), f)
 
 """
     Transform JSON file to be valid as it will contain one JSON object for each line.
@@ -72,6 +68,8 @@ def clean_json_output(dirpath, filename):
                 f_output.write(l)
             f_output.write("]")
 
+    os.remove(path_to_dir / f"{filename}.json")
+
 
 """
     Start recording data.
@@ -79,14 +77,50 @@ def clean_json_output(dirpath, filename):
     - Setup logger
 """
 def start_record(dirpath, filename):
+    path_to_dir = Path(dirpath)
+    # TODO: Check if dirpath exist, if not create it
+    if not path_to_dir.is_dir():
+        os.mkdir(path_to_dir)
+
     # TODO: retreive all needed information about environment
-    # dump_and_save_environment
+    dump_and_save_environment(dirpath, filename)
     
     # setup bw2 logging listener
     handler = createJSONFileHandler(dirpath, filename)
     logger = logging.getLogger("bw2calc")
     logger.addHandler(handler)
 
+def remove_useless_files(dirpath, filename):
+    for fname in os.listdir(dirpath):
+        if fname.startswith(filename):
+            os.remove(os.path.join(dirpath, fname))
+
+def clean_the_mess(dirpath, filename):
+    print(f"Formatting {filename}-calculations.json")
+    clean_json_output(dirpath, filename)
+    print(f"Removing dummy files")
+    remove_useless_files(dirpath, DUMMY_NAME_TO_TRIGGER_LOGGER)
+
+def merge_json_files(dirpath, filename):
+    calculation_file = Path(dirpath) / f"{filename}-calculations.json"
+    dependencies_file = Path(dirpath) / f"{filename}-conda-environment.json"
+    
+    with open(calculation_file, "r") as f:
+        calc_dict = json.load(f)
+    with open(dependencies_file, "r") as f:
+        dep_dict = json.load(f)
+
+    final_file = Path(dirpath) / f"{filename}.json"
+    with open(final_file, 'w') as f:
+        json.dump(
+            {
+                "dependencies": dep_dict,
+                "calculations": calc_dict
+            },
+            f
+        )
+    os.remove(calculation_file)
+    os.remove(dependencies_file)
 
 """
     End recording.
@@ -96,9 +130,9 @@ def start_record(dirpath, filename):
 
 """
 def end_record(dirpath, filename):
-    clean_json_output(dirpath, filename)
-    # TODO: merge environment and calculation files
-    pass
+    clean_the_mess(dirpath, filename)
+    # Merge environment and calculation files
+    merge_json_files(dirpath, filename)
 
 
 def test():
