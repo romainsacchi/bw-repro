@@ -266,6 +266,6 @@
         "prefix": "/home/lchion/softwares/miniconda3/envs/bw2"
     },
     "calculations": [
-       
+     {"demand": [{"database": "ecoinvent36", "code": "a60a362985a66568c4bb7d48fd03a34e", "amount": 1}], "database_filepath": ["/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/biosphere3.5d405d7124beac53e64a4cd0f9e012f4.npy", "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/ecoinvent36.9bf3de23724dff4f3fa839f9a13ed98e.npy"], "method": ["CML 2001 (obsolete)", "stratospheric ozone depletion", "ODP steady state"], "method_filepath": ["/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/cml-2001-obsoleteso.e17012f011a28ce92c8bda93dc45635e.npy"], "normalization": null, "normalization_filepath": null, "presamples": "None", "weighting": null, "weighting_filepath": null, "score": 5.410424779894804e-09, "message": "Performing LCIA -test-", "time": "2022-09-30 08:12:05.509374"}
     ]
 }
