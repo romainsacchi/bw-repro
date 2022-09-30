@@ -11,6 +11,7 @@ PATH = Path().resolve().parent / "example" / "resources"
     Create Conda environemnt.yaml file 
 """
 def dump_and_save_environment(dirpath):
+    print(Path(dirpath))
     with open(Path(dirpath) / f"environment.yaml", "w") as f:
         # Call conda from python
         proc = run(["conda", "env", "export", "--name", os.environ['CONDA_DEFAULT_ENV'], "--no-builds"], text=True, capture_output=True)
@@ -39,7 +40,7 @@ def clean_json_output(dirpath):
 
     with open(filepath, "r") as f_input:
         with open(
-            path_to_dir / "calculations.json",
+            path_to_dir / "config.json",
             "w"
         ) as f_output:
             # Create an array
@@ -68,7 +69,7 @@ def clean_json_output(dirpath):
 
     with open(filepath, "r") as f_input:
         with open(
-            path_to_dir / f"calculations.json",
+            path_to_dir / f"config.json",
             "w"
         ) as f_output:
             # Create an array
@@ -196,7 +197,7 @@ def upgrade_LCA(config):
                                  'presamples': str(self.presamples),
                                  'weighting': self.weighting,
                                  'weighting_filepath': self.weighting_filepath,
-                                 'score': self.score,
+                                 'score': self.score
                                  }
                              )
     return newLCA
@@ -266,8 +267,8 @@ def upgrade_MonteCarloLCA(config):
 def test():
     import brightway2 as bw
     log_config = {
-        "logger_path": "yooolo",
-        "name": "yoo"
+        "logger_path": "workflow/config",
+        "name": "experiment"
     }
     bw = record(bw, log_config)
 
@@ -275,17 +276,23 @@ def test():
     meth = bw.methods.random()
     process = bw.Database('test_db').random()
 
-    # bw.projects.set_current("my_project")
-
     def do_random_lca():
         fu = {process: 1}
         lca = bw.LCA(fu, meth)
         lca.lci()
         lca.lcia()
 
+    def do_random_mlca():
+        fu = {process: 1}
+        mlca = bw.MonteCarloLCA(fu, meth, seed=0)
+        for i in range(3):
+            next(mlca)
+        mlca.record()
+
     for _ in range(0, 5):
         do_random_lca()
-    
+        do_random_mlca()
+
     bw.repro["save"]()
 
 if __name__ == "__main__":
