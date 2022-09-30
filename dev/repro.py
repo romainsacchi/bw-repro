@@ -44,6 +44,9 @@ def upgrade_LCA(config):
             super().lcia(*args,**kwargs)
             self.logger.info("Performing LCIA -test-",
                              extra={
+                                 'name': "LCA",
+                                 'seed': self.seed,
+                                 'function': self.lcia.__name__,
                                  'demand': utils.wrap_functional_unit(self.demand),
                                  'database_filepath': self.database_filepath,
                                  'method': self.method,
@@ -85,3 +88,32 @@ def test():
 
 if __name__ == "__main__":
     test()
+
+
+def upgrade_MonteCarloLCA(config):
+    class newMonteCarloLCA(MonteCarloLCA):
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.logger = logging.getLogger(config["name"])
+            # self.repro_logger = logging.getLogger(config["name"])
+        def lcia(self, *args, **kwargs):
+            super().lcia(*args,**kwargs)
+            self.logger.info("Performing LCIA -test-",
+                             extra={
+                                 'name': "LCA",
+                                 'seed': self.seed,
+                                 'function': self.lcia.__name__,
+                                 'demand': utils.wrap_functional_unit(self.demand),
+                                 'database_filepath': self.database_filepath,
+                                 'method': self.method,
+                                 'method_filepath': self.method_filepath,
+                                 'normalization': self.normalization,
+                                 'normalization_filepath': self.normalization_filepath,
+                                 'presamples': str(self.presamples),
+                                 'weighting': self.weighting,
+                                 'weighting_filepath': self.weighting_filepath,
+                                 'score': self.score,
+                                 }
+                             )
+
+    return newLCA
