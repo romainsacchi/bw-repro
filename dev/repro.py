@@ -6,15 +6,15 @@ from subprocess import run
 import brightway2 as bw
 import numpy as np
 
-PATH = Path().resolve().parent / "example" / "resources"
+PATH = Path().resolve() / "workflow" / "resources"
 """
     Create Conda environemnt.yaml file 
 """
 def dump_and_save_environment(dirpath):
     print(Path(dirpath))
-    with open(Path(dirpath) / f"environment.yaml", "w") as f:
+    with open(Path(dirpath).parent / "envs" / f"environment.yaml", "w") as f:
         # Call conda from python
-        proc = run(["conda", "env", "export", "--name", os.environ['CONDA_DEFAULT_ENV'], "--no-builds"], text=True, capture_output=True)
+        proc = run(["conda", "envs", "export", "--name", os.environ['CONDA_DEFAULT_ENV'], "--no-builds"], text=True, capture_output=True)
         f.write(proc.stdout)
 
 """
