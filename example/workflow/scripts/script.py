@@ -55,7 +55,9 @@ def run_lca(lca_setup):
     db = lca_setup["demand"]["database"]
     code = lca_setup["demand"]["code"]
     qty = lca_setup["demand"]["quantity"]
-    print(db, code)
+
+    for c in config[0]:
+        if
     act = bw2data.get_activity((db, code))
     # fetch method
     method = bw2data.methods.random()
@@ -65,24 +67,12 @@ def run_lca(lca_setup):
     lca.lcia()
     return lca.score
 
-
-print("Showing databases")
-print(bw2data.databases)
 dbs = config[0]["databases"]
 
-for db in dbs:
-    print(db)
-    if db["name"] not in bw2data.databases:
-        #pass
-        install_dbs(db)
-
-
-random_act = bw2data.Database('cobalt').random()
-print(random_act.key)
 
 print("Running LCA...")
 
 with open(RESULTS_PATH / "results.txt", "w") as f:
-    for lca_setup in config[0]["calculations"]:
+    for lca_setup in config:
         f.write(str(run_lca(lca_setup)))
 

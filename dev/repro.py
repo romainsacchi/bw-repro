@@ -39,7 +39,7 @@ def clean_json_output(dirpath):
 
     with open(filepath, "r") as f_input:
         with open(
-            path_to_dir / "calculations.json",
+            path_to_dir / "config.json",
             "w"
         ) as f_output:
             # Create an array
@@ -68,7 +68,7 @@ def clean_json_output(dirpath):
 
     with open(filepath, "r") as f_input:
         with open(
-            path_to_dir / f"calculations.json",
+            path_to_dir / f"config.json",
             "w"
         ) as f_output:
             # Create an array

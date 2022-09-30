@@ -1,51 +1,202 @@
 [
-  {
-    "databases": [
-      {
-        "name": "ecoinvent",
-        "version": "3.8",
-        "system model": "cutoff",
-        "available in resources": false,
-        "depends on": ["biosphere3"]
-      },
-      {
-        "name": "cobalt",
-        "available in resources": true,
-        "file name": "cobalt.bw2package",
-        "depends on" : [
-            "ecoinvent cutoff 3.8", "biosphere3"
-          ]
-      }
-    ],
-    "calculations": [
-      {
-        "demand": {
-          "database": "cobalt",
-          "code": "4afbe2c60c0f370b6613cabc7a3c4398",
-          "quantity": 1
-        }
-      },
-      {
-        "demand": {
-          "database": "cobalt",
-          "code": "1ce783c87476198e30a53f9088a3b581",
-          "quantity": 1
-        }
-      },
-      {
-        "demand": {
-          "database": "cobalt",
-          "code": "68426ece99639d3ab39aaa23156d9a5e",
-          "quantity": 1
-        }
-      },
-      {
-        "demand": {
-          "database": "cobalt",
-          "code": "5a0052767426e8f544277207c59a34a9",
-          "quantity": 1
-        }
-      }
-    ]
-  }
+    {
+        "calc_config": {
+            "databases": [
+                {
+                    "name": "ecoinvent",
+                    "version": "3.8",
+                    "system model": "cutoff",
+                    "available in resources": false,
+                    "depends on": ["biosphere3"],
+                },
+                {
+                    "name": "test_db",
+                    "available in resources": true,
+                    "file name": "test_db.fe1b0b5e95b774bca4fe7496251ac3ce.bw2package",
+                    "depends on": ["ecoinvent36"],
+                },
+            ]
+        },
+        "calc_name": "LCA",
+        "seed": null,
+        "function": "lcia",
+        "demand": [{"database": "test_db", "code": "lego", "amount": 1}],
+        "database_filepath": [
+            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/ecoinvent36.9bf3de23724dff4f3fa839f9a13ed98e.npy",
+            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/biosphere3.5d405d7124beac53e64a4cd0f9e012f4.npy",
+            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/test_db.fe1b0b5e95b774bca4fe7496251ac3ce.npy",
+        ],
+        "method": ["ecological footprint", "total", "total"],
+        "method_filepath": [
+            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/ecological-footprinttt.8684ba0b2d985b8f253f9feed17bee5b.npy"
+        ],
+        "normalization": null,
+        "normalization_filepath": null,
+        "presamples": "None",
+        "weighting": null,
+        "weighting_filepath": null,
+        "score": 32.546536366272925,
+        "message": "Performing LCIA -test-",
+        "time": "2022-09-30 12:50:26.744708",
+    },
+    {
+        "calc_config": {
+            "databases": [
+                {
+                    "name": "ecoinvent",
+                    "version": "3.8",
+                    "system model": "cutoff",
+                    "available in resources": false,
+                    "depends on": ["biosphere3"],
+                },
+                {
+                    "name": "test_db",
+                    "available in resources": true,
+                    "file name": "test_db.fe1b0b5e95b774bca4fe7496251ac3ce.bw2package",
+                    "depends on": ["ecoinvent36"],
+                },
+            ]
+        },
+        "calc_name": "LCA",
+        "seed": null,
+        "function": "lcia",
+        "demand": [{"database": "test_db", "code": "lego", "amount": 1}],
+        "database_filepath": [
+            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/ecoinvent36.9bf3de23724dff4f3fa839f9a13ed98e.npy",
+            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/biosphere3.5d405d7124beac53e64a4cd0f9e012f4.npy",
+            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/test_db.fe1b0b5e95b774bca4fe7496251ac3ce.npy",
+        ],
+        "method": ["ecological footprint", "total", "total"],
+        "method_filepath": [
+            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/ecological-footprinttt.8684ba0b2d985b8f253f9feed17bee5b.npy"
+        ],
+        "normalization": null,
+        "normalization_filepath": null,
+        "presamples": "None",
+        "weighting": null,
+        "weighting_filepath": null,
+        "score": 32.546536366272925,
+        "message": "Performing LCIA -test-",
+        "time": "2022-09-30 12:50:26.882826",
+    },
+    {
+        "calc_config": {
+            "databases": [
+                {
+                    "name": "ecoinvent",
+                    "version": "3.8",
+                    "system model": "cutoff",
+                    "available in resources": false,
+                    "depends on": ["biosphere3"],
+                },
+                {
+                    "name": "test_db",
+                    "available in resources": true,
+                    "file name": "test_db.fe1b0b5e95b774bca4fe7496251ac3ce.bw2package",
+                    "depends on": ["ecoinvent36"],
+                },
+            ]
+        },
+        "calc_name": "LCA",
+        "seed": null,
+        "function": "lcia",
+        "demand": [{"database": "test_db", "code": "lego", "amount": 1}],
+        "database_filepath": [
+            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/ecoinvent36.9bf3de23724dff4f3fa839f9a13ed98e.npy",
+            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/biosphere3.5d405d7124beac53e64a4cd0f9e012f4.npy",
+            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/test_db.fe1b0b5e95b774bca4fe7496251ac3ce.npy",
+        ],
+        "method": ["ecological footprint", "total", "total"],
+        "method_filepath": [
+            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/ecological-footprinttt.8684ba0b2d985b8f253f9feed17bee5b.npy"
+        ],
+        "normalization": null,
+        "normalization_filepath": null,
+        "presamples": "None",
+        "weighting": null,
+        "weighting_filepath": null,
+        "score": 32.546536366272925,
+        "message": "Performing LCIA -test-",
+        "time": "2022-09-30 12:50:27.020677",
+    },
+    {
+        "calc_config": {
+            "databases": [
+                {
+                    "name": "ecoinvent",
+                    "version": "3.8",
+                    "system model": "cutoff",
+                    "available in resources": false,
+                    "depends on": ["biosphere3"],
+                },
+                {
+                    "name": "test_db",
+                    "available in resources": true,
+                    "file name": "test_db.fe1b0b5e95b774bca4fe7496251ac3ce.bw2package",
+                    "depends on": ["ecoinvent36"],
+                },
+            ]
+        },
+        "calc_name": "LCA",
+        "seed": null,
+        "function": "lcia",
+        "demand": [{"database": "test_db", "code": "lego", "amount": 1}],
+        "database_filepath": [
+            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/ecoinvent36.9bf3de23724dff4f3fa839f9a13ed98e.npy",
+            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/biosphere3.5d405d7124beac53e64a4cd0f9e012f4.npy",
+            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/test_db.fe1b0b5e95b774bca4fe7496251ac3ce.npy",
+        ],
+        "method": ["ecological footprint", "total", "total"],
+        "method_filepath": [
+            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/ecological-footprinttt.8684ba0b2d985b8f253f9feed17bee5b.npy"
+        ],
+        "normalization": null,
+        "normalization_filepath": null,
+        "presamples": "None",
+        "weighting": null,
+        "weighting_filepath": null,
+        "score": 32.546536366272925,
+        "message": "Performing LCIA -test-",
+        "time": "2022-09-30 12:50:27.160088",
+    },
+    {
+        "calc_config": {
+            "databases": [
+                {
+                    "name": "ecoinvent",
+                    "version": "3.8",
+                    "system model": "cutoff",
+                    "available in resources": false,
+                    "depends on": ["biosphere3"],
+                },
+                {
+                    "name": "test_db",
+                    "available in resources": true,
+                    "file name": "test_db.fe1b0b5e95b774bca4fe7496251ac3ce.bw2package",
+                    "depends on": ["ecoinvent36"],
+                },
+            ]
+        },
+        "calc_name": "LCA",
+        "seed": null,
+        "function": "lcia",
+        "demand": [{"database": "test_db", "code": "lego", "amount": 1}],
+        "database_filepath": [
+            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/ecoinvent36.9bf3de23724dff4f3fa839f9a13ed98e.npy",
+            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/biosphere3.5d405d7124beac53e64a4cd0f9e012f4.npy",
+            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/test_db.fe1b0b5e95b774bca4fe7496251ac3ce.npy",
+        ],
+        "method": ["ecological footprint", "total", "total"],
+        "method_filepath": [
+            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/ecological-footprinttt.8684ba0b2d985b8f253f9feed17bee5b.npy"
+        ],
+        "normalization": null,
+        "normalization_filepath": null,
+        "presamples": "None",
+        "weighting": null,
+        "weighting_filepath": null,
+        "score": 32.546536366272925,
+        "message": "Performing LCIA -test-",
+        "time": "2022-09-30 12:50:27.307389",
+    },
 ]
