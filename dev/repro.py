@@ -4,7 +4,9 @@ from pathlib import Path
 from bw2calc import LCA, MultiLCA, MonteCarloLCA, MultiMonteCarlo, log_utils, utils
 from subprocess import run
 import brightway2 as bw
+import numpy as np
 
+PATH = Path().resolve().parent / "example" / "resources"
 """
     Create Conda environemnt.yaml file 
 """
@@ -104,15 +106,17 @@ def end_record(dirpath):
     # Merge environment and calculation files
     # merge_json_files(dirpath, filename)
 
-def coolname(bw_module: bw, config:dict=None):
+def record(bw_module: bw, config:dict=None):
     start_record(dirpath=config["logger_path"])
 
     # Here we have code that converts the bw package
     create_logger(dirpath=config["logger_path"], name = config["name"])
     bw_module.LCA= upgrade_LCA(config)
-    # bw.MultiLCA= upgrade_MultiLCA(config)
-    # bw.MonteCarloLCA= upgrade_MonteCarloLCA(config)
-    # bw.MultiMonteCarlo= upgrade_MultiMonteCarlo(config)
+    bw_module.MonteCarloLCA= upgrade_MonteCarloLCA(config)
+
+    #TODO: do this
+    # bw_module= upgrade_MultiLCA(config)
+    # bw_module.MultiMonteCarlo= upgrade_MultiMonteCarlo(config)
     
     # add a custom root to save change
     bw.repro = { "save": lambda : end_record(config["logger_path"])}
@@ -142,27 +146,122 @@ def upgrade_LCA(config):
             self.logger = logging.getLogger(config["name"])
 
         def lcia(self, *args, **kwargs):
-            super().lcia(*args,**kwargs)
-            self.logger.info(
-                "Performing LCIA -test-",
-                extra={
-                    'calc_name': "LCA",
-                    'seed': self.seed,
-                    'function': self.lcia.__name__,
-                    'demand': utils.wrap_functional_unit(self.demand),
-                    'database_filepath': self.database_filepath,
-                    'method': self.method,
-                    'method_filepath': self.method_filepath,
-                    'normalization': self.normalization,
-                    'normalization_filepath': self.normalization_filepath,
-                    'presamples': str(self.presamples),
-                    'weighting': self.weighting,
-                    'weighting_filepath': self.weighting_filepath,
-                    'score': self.score,
-                }
+            print(PATH)
+            demand_dict = utils.wrap_functional_unit(self.demand)
+            db_to_export = bw.Database(demand_dict[0]["database"])
+            db_dependencies = bw.databases[demand_dict[0]["database"]]["depends"]
+            bw2package_name = f"{demand_dict[0]['database']}"
+            filepath = bw.BW2Package.export_obj(
+                obj=db_to_export,
+                filename= bw2package_name,
+                # folder="/home/glarrea/bw-repro/dev")
+                folder=PATH,
             )
+            print(filepath)
+            filepath = Path(filepath).name
+            print(filepath)
+            #TODO: fix this
+            self.calc_config = {
+                    "databases": [
+                        {
+                            "name": "ecoinvent",
+                            "version": "3.8",
+                            "system model": "cutoff",
+                            "available in resources": False,
+                            "depends on": ["biosphere3"]
+                        },
+                        {
+                            "name": demand_dict[0]["database"],
+                            "available in resources": True,
+                            "file name": filepath,
+                            "depends on": db_dependencies
+                        }
+                    ]
+                }
 
+
+            super().lcia(*args,**kwargs)
+            self.logger.info("Performing LCIA -test-",
+                             extra={
+                                 'calc_config': self.calc_config,
+                                 'calc_name': "LCA",
+                                 'seed': self.seed,
+                                 'function': self.lcia.__name__,
+                                 'demand': utils.wrap_functional_unit(self.demand),
+                                 'database_filepath': self.database_filepath,
+                                 'method': self.method,
+                                 'method_filepath': self.method_filepath,
+                                 'normalization': self.normalization,
+                                 'normalization_filepath': self.normalization_filepath,
+                                 'presamples': str(self.presamples),
+                                 'weighting': self.weighting,
+                                 'weighting_filepath': self.weighting_filepath,
+                                 'score': self.score,
+                                 }
+                             )
     return newLCA
+
+def upgrade_MonteCarloLCA(config):
+    class newMonteCarloLCA(MonteCarloLCA):
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.list_scores = []
+            self.score_mean=0
+            self.score_std=0
+            self.counter=0
+            self.logger = logging.getLogger(config["name"])
+
+        def __next__(self):
+            self.counter+=1
+            _ = super().__next__()
+            self.list_scores.append(self.score)
+            self.score_mean = np.mean(self.list_scores)
+            self.score_std = np.std(self.list_scores)
+
+            return _
+
+        def record(self):
+            demand_dict = utils.wrap_functional_unit(self.demand)
+            db_dependencies = bw.databases[demand_dict[0]["database"]]["depends"]
+            bw2package_name = f"{demand_dict[0]['database']}.bw2package"
+
+            self.calc_config = {
+                    "databases": [
+                        {
+                            "name": "ecoinvent",
+                            "version": "3.8",
+                            "system model": "cutoff",
+                            "available in resources": False,
+                            "depends on": ["biosphere3"]
+                        },
+                        {
+                            "name": demand_dict[0]["database"],
+                            "available in resources": True,
+                            "file name": bw2package_name,
+                            "depends on": db_dependencies
+                        }
+                    ]
+                }
+            self.logger.info("Performing MonteCarloLCA -test-",
+                             extra={
+                                 'calc_name': "MonteCarloLCA",
+                                 'seed': self.seed,
+                                 'function': self.load_data.__name__,
+                                 'demand': utils.wrap_functional_unit(self.demand),
+                                 'database_filepath': self.database_filepath,
+                                 'method': self.method,
+                                 'method_filepath': self.method_filepath,
+                                 'normalization': self.normalization,
+                                 'normalization_filepath': self.normalization_filepath,
+                                 'presamples': str(self.presamples),
+                                 'weighting': self.weighting,
+                                 'weighting_filepath': self.weighting_filepath,
+                                 'simulations': self.counter,
+                                 'score_mean': self.score,
+                                 'score_std': self.score_std,
+                             }
+                             )
+    return newMonteCarloLCA
 
 def test():
     import brightway2 as bw
@@ -170,14 +269,15 @@ def test():
         "logger_path": "yooolo",
         "name": "yoo"
     }
-    bw = coolname(bw, log_config)
+    bw = record(bw, log_config)
 
-    # bw.projects.set_current("ABM_SN")
-    bw.projects.set_current("my_project")
+    bw.projects.set_current("ABM_SN")
+    meth = bw.methods.random()
+    process = bw.Database('test_db').random()
+
+    # bw.projects.set_current("my_project")
 
     def do_random_lca():
-        meth = bw.methods.random()
-        process = bw.Database('ecoinvent36').random()
         fu = {process: 1}
         lca = bw.LCA(fu, meth)
         lca.lci()
@@ -191,32 +291,3 @@ def test():
 if __name__ == "__main__":
     test()
 
-
-def upgrade_MonteCarloLCA(config):
-    class newMonteCarloLCA(MonteCarloLCA):
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-            self.logger = logging.getLogger(config["name"])
-        
-        def load_data(self, *args, **kwargs):
-            super().load_data(*args,**kwargs)
-            self.logger.info(
-                "Performing LCIA -test-",
-                extra={
-                    'calc_name': "MonteCarloLCA",
-                    'seed': self.seed,
-                    'function': self.lcia.__name__,
-                    'demand': utils.wrap_functional_unit(self.demand),
-                    'database_filepath': self.database_filepath,
-                    'method': self.method,
-                    'method_filepath': self.method_filepath,
-                    'normalization': self.normalization,
-                    'normalization_filepath': self.normalization_filepath,
-                    'presamples': str(self.presamples),
-                    'weighting': self.weighting,
-                    'weighting_filepath': self.weighting_filepath,
-                    'score': self.score,
-                }
-            )
-
-    return newMonteCarloLCA
