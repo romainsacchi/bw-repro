@@ -15,10 +15,12 @@
     ],
     "calculations": [
       {
-        "demand": {("cobalt", "dfdgfhgf"): 1
+        "demand": {
+          "database": "cobalt",
+          "code": "dfdgfhgf",
+          "quantity": 1
         }
-      },
-      {}
+      }
     ]
   }
 ]
