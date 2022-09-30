@@ -95,14 +95,13 @@ def upgrade_MonteCarloLCA(config):
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
             self.logger = logging.getLogger(config["name"])
-            # self.repro_logger = logging.getLogger(config["name"])
-        def lcia(self, *args, **kwargs):
-            super().lcia(*args,**kwargs)
-            self.logger.info("Performing LCIA -test-",
+        def load_data(self, *args, **kwargs):
+            super().load_data(*args,**kwargs)
+            self.logger.info("Performing MonteCarloLCA -test-",
                              extra={
-                                 'name': "LCA",
+                                 'name': "MonteCarloLCA",
                                  'seed': self.seed,
-                                 'function': self.lcia.__name__,
+                                 'function': self.load_data.__name__,
                                  'demand': utils.wrap_functional_unit(self.demand),
                                  'database_filepath': self.database_filepath,
                                  'method': self.method,
@@ -116,4 +115,4 @@ def upgrade_MonteCarloLCA(config):
                                  }
                              )
 
-    return newLCA
+    return newMonteCarloLCA
