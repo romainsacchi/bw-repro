@@ -5,6 +5,7 @@ rule run:
         "workflow/results/results.txt"
     conda:
         "envs/env.yaml"
+    threads: 1
     script:
         "scripts/script.py"
 
