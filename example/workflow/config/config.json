@@ -7,14 +7,14 @@
                     "version": "3.8",
                     "system model": "cutoff",
                     "available in resources": false,
-                    "depends on": ["biosphere3"],
+                    "depends on": ["biosphere3"]
                 },
                 {
                     "name": "test_db",
                     "available in resources": true,
                     "file name": "test_db.fe1b0b5e95b774bca4fe7496251ac3ce.bw2package",
-                    "depends on": ["ecoinvent36"],
-                },
+                    "depends on": ["ecoinvent"]
+                }
             ]
         },
         "calc_name": "LCA",
@@ -22,9 +22,9 @@
         "function": "lcia",
         "demand": [{"database": "test_db", "code": "lego", "amount": 1}],
         "database_filepath": [
-            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/ecoinvent36.9bf3de23724dff4f3fa839f9a13ed98e.npy",
+            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/ecoinvent.9bf3de23724dff4f3fa839f9a13ed98e.npy",
             "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/biosphere3.5d405d7124beac53e64a4cd0f9e012f4.npy",
-            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/test_db.fe1b0b5e95b774bca4fe7496251ac3ce.npy",
+            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/test_db.fe1b0b5e95b774bca4fe7496251ac3ce.npy"
         ],
         "method": ["ecological footprint", "total", "total"],
         "method_filepath": [
@@ -37,7 +37,7 @@
         "weighting_filepath": null,
         "score": 32.546536366272925,
         "message": "Performing LCIA -test-",
-        "time": "2022-09-30 12:50:26.744708",
+        "time": "2022-09-30 12:50:26.744708"
     },
     {
         "calc_config": {
@@ -47,14 +47,14 @@
                     "version": "3.8",
                     "system model": "cutoff",
                     "available in resources": false,
-                    "depends on": ["biosphere3"],
+                    "depends on": ["biosphere3"]
                 },
                 {
                     "name": "test_db",
                     "available in resources": true,
                     "file name": "test_db.fe1b0b5e95b774bca4fe7496251ac3ce.bw2package",
-                    "depends on": ["ecoinvent36"],
-                },
+                    "depends on": ["ecoinvent"]
+                }
             ]
         },
         "calc_name": "LCA",
@@ -62,9 +62,9 @@
         "function": "lcia",
         "demand": [{"database": "test_db", "code": "lego", "amount": 1}],
         "database_filepath": [
-            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/ecoinvent36.9bf3de23724dff4f3fa839f9a13ed98e.npy",
+            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/ecoinvent.9bf3de23724dff4f3fa839f9a13ed98e.npy",
             "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/biosphere3.5d405d7124beac53e64a4cd0f9e012f4.npy",
-            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/test_db.fe1b0b5e95b774bca4fe7496251ac3ce.npy",
+            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/test_db.fe1b0b5e95b774bca4fe7496251ac3ce.npy"
         ],
         "method": ["ecological footprint", "total", "total"],
         "method_filepath": [
@@ -77,7 +77,7 @@
         "weighting_filepath": null,
         "score": 32.546536366272925,
         "message": "Performing LCIA -test-",
-        "time": "2022-09-30 12:50:26.882826",
+        "time": "2022-09-30 12:50:26.882826"
     },
     {
         "calc_config": {
@@ -87,14 +87,14 @@
                     "version": "3.8",
                     "system model": "cutoff",
                     "available in resources": false,
-                    "depends on": ["biosphere3"],
+                    "depends on": ["biosphere3"]
                 },
                 {
                     "name": "test_db",
                     "available in resources": true,
                     "file name": "test_db.fe1b0b5e95b774bca4fe7496251ac3ce.bw2package",
-                    "depends on": ["ecoinvent36"],
-                },
+                    "depends on": ["ecoinvent"]
+                }
             ]
         },
         "calc_name": "LCA",
@@ -102,9 +102,9 @@
         "function": "lcia",
         "demand": [{"database": "test_db", "code": "lego", "amount": 1}],
         "database_filepath": [
-            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/ecoinvent36.9bf3de23724dff4f3fa839f9a13ed98e.npy",
+            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/ecoinvent.9bf3de23724dff4f3fa839f9a13ed98e.npy",
             "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/biosphere3.5d405d7124beac53e64a4cd0f9e012f4.npy",
-            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/test_db.fe1b0b5e95b774bca4fe7496251ac3ce.npy",
+            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/test_db.fe1b0b5e95b774bca4fe7496251ac3ce.npy"
         ],
         "method": ["ecological footprint", "total", "total"],
         "method_filepath": [
@@ -117,7 +117,7 @@
         "weighting_filepath": null,
         "score": 32.546536366272925,
         "message": "Performing LCIA -test-",
-        "time": "2022-09-30 12:50:27.020677",
+        "time": "2022-09-30 12:50:27.020677"
     },
     {
         "calc_config": {
@@ -127,14 +127,14 @@
                     "version": "3.8",
                     "system model": "cutoff",
                     "available in resources": false,
-                    "depends on": ["biosphere3"],
+                    "depends on": ["biosphere3"]
                 },
                 {
                     "name": "test_db",
                     "available in resources": true,
                     "file name": "test_db.fe1b0b5e95b774bca4fe7496251ac3ce.bw2package",
-                    "depends on": ["ecoinvent36"],
-                },
+                    "depends on": ["ecoinvent"]
+                }
             ]
         },
         "calc_name": "LCA",
@@ -142,9 +142,9 @@
         "function": "lcia",
         "demand": [{"database": "test_db", "code": "lego", "amount": 1}],
         "database_filepath": [
-            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/ecoinvent36.9bf3de23724dff4f3fa839f9a13ed98e.npy",
+            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/ecoinvent.9bf3de23724dff4f3fa839f9a13ed98e.npy",
             "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/biosphere3.5d405d7124beac53e64a4cd0f9e012f4.npy",
-            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/test_db.fe1b0b5e95b774bca4fe7496251ac3ce.npy",
+            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/test_db.fe1b0b5e95b774bca4fe7496251ac3ce.npy"
         ],
         "method": ["ecological footprint", "total", "total"],
         "method_filepath": [
@@ -157,7 +157,7 @@
         "weighting_filepath": null,
         "score": 32.546536366272925,
         "message": "Performing LCIA -test-",
-        "time": "2022-09-30 12:50:27.160088",
+        "time": "2022-09-30 12:50:27.160088"
     },
     {
         "calc_config": {
@@ -167,14 +167,14 @@
                     "version": "3.8",
                     "system model": "cutoff",
                     "available in resources": false,
-                    "depends on": ["biosphere3"],
+                    "depends on": ["biosphere3"]
                 },
                 {
                     "name": "test_db",
                     "available in resources": true,
                     "file name": "test_db.fe1b0b5e95b774bca4fe7496251ac3ce.bw2package",
-                    "depends on": ["ecoinvent36"],
-                },
+                    "depends on": ["ecoinvent"]
+                }
             ]
         },
         "calc_name": "LCA",
@@ -182,9 +182,9 @@
         "function": "lcia",
         "demand": [{"database": "test_db", "code": "lego", "amount": 1}],
         "database_filepath": [
-            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/ecoinvent36.9bf3de23724dff4f3fa839f9a13ed98e.npy",
+            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/ecoinvent.9bf3de23724dff4f3fa839f9a13ed98e.npy",
             "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/biosphere3.5d405d7124beac53e64a4cd0f9e012f4.npy",
-            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/test_db.fe1b0b5e95b774bca4fe7496251ac3ce.npy",
+            "/home/glarrea/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/test_db.fe1b0b5e95b774bca4fe7496251ac3ce.npy"
         ],
         "method": ["ecological footprint", "total", "total"],
         "method_filepath": [
@@ -197,6 +197,6 @@
         "weighting_filepath": null,
         "score": 32.546536366272925,
         "message": "Performing LCIA -test-",
-        "time": "2022-09-30 12:50:27.307389",
-    },
+        "time": "2022-09-30 12:50:27.307389"
+    }
 ]
