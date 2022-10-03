@@ -9,41 +9,40 @@ Created on Fri Sep 30 14:03:51 2022
 import shutil
 from pathlib import Path
 
+PATH = Path().resolve()
 
-def create_folder():
+def create_folders():
     
-    proj_path_path = Path.cwd() / 'reproducible_lca'
-    proj_path_path.mkdir(parents=True, exist_ok=False)
+    proj_path_path = Path.cwd() / ".bw_repro"
+    proj_path_path.mkdir(parents=True, exist_ok=True)
     
-    dev_path = Path.cwd() / 'reproducible_lca' / 'dev'
-    dev_path.mkdir(parents=True, exist_ok=False)
+
+    config_path = Path.cwd() / ".bw_repro" /  'config'
+    config_path.mkdir(parents=True, exist_ok=True)
     
-    config_path = Path.cwd() / 'reproducible_lca' / 'config'
-    config_path.mkdir(parents=True, exist_ok=False)
+    envs_path = Path.cwd() / ".bw_repro" /  'envs'
+    envs_path.mkdir(parents=True, exist_ok=True)
     
-    envs_path = Path.cwd() / 'reproducible_lca' / 'envs'
-    envs_path.mkdir(parents=True, exist_ok=False)
+    resources_path = Path.cwd() / ".bw_repro" /  'resources'
+    resources_path.mkdir(parents=True, exist_ok=True)
     
-    resources_path = Path.cwd() / 'reproducible_lca' / 'resources'
-    resources_path.mkdir(parents=True, exist_ok=False)
-    
-    scripts_path = Path.cwd() / 'reproducible_lca' / 'scripts'
-    scripts_path.mkdir(parents=True, exist_ok=False)
+    scripts_path = Path.cwd() / ".bw_repro" /  'scripts'
+    scripts_path.mkdir(parents=True, exist_ok=True)
     
 def create_zip():
     
-    output_filename = 'reproducible_lca'
-    dir_name = 'reproducible_lca'
+    output_filename = 'output'
+    dir_name = PATH / '.bw_repro/'
     shutil.make_archive(output_filename, 'zip', dir_name)
     
 def create_snakefile():
     
-    snkf = open("reproducible_lca\Snakefile.txt", "w")
+    snkf = open( PATH / ".bw_repro/Snakefile.txt", "w")
     snkf.write("rule run:\n\tinput:\n\t\t'workflow/config/config.json'\n\n\toutput:\n\t\t'workflow/results/results.txt'\n\tconda:\n\t\t'envs/env.yaml'\n\tthreads: 1\n\tscript:\n\t\t'scripts/script.py'")
     snkf.close()
 
 def create_script():
-    script = open("reproducible_lca\scripts\script.txt", "w")
+    script = open(".bw_repro/scripts/script.py", "w")
     script.write('import bw2io, bw2data, bw2calc\nimport eidl\nfrom pathlib import Path\nimport json\n\nCONFIG_PATH = Path(__file__).parent.parent / "config"\nRESOURCES_PATH = Path(__file__).parent.parent / "resources"\nRESULTS_PATH = Path(__file__).parent.parent / "results"\n\nwith open(CONFIG_PATH / "config.json") as f:\n\tconfig = json.load(f)\n\nprint("Creating project...")\
                  \n\nbw2data.projects.set_current("default")\n\nprint("Installing biosphere...")\nprint(bw2data.databases)\nbw2io.bw2setup()\n\n\ndef install_dbs(db):\n\n\tif db["available in resources"]:\n\t\tif all(i in bw2data.databases for i in db["depends on"]):\n\t\t\tprint(f"Importing {db[\'name\']}...")\n\t\t\tbw2io.BW2Package.import_file \
                  (RESOURCES_PATH / db["file name"])\n\t\telse:\n\t\t\traise ValueError(f"Missing databases in order to import {db[\'name\']}.")\n\telse:\n\t\tif db["name"] == "ecoinvent" and all(i in bw2data.databases for i in db["depends on"]):\n\t\t\tname = db["name"]\n\t\t\tver = db["version"]\n\t\t\tsystem_model = db["system model"]\n\t\t\tif f"{name} {system_model} {ver}" not in \
@@ -53,7 +52,7 @@ def create_script():
 
     script.close()
     
-create_folder()
-create_snakefile()
-create_script()
-create_zip()
+# create_folder()
+# create_snakefile()
+# create_script()
+# create_zip()

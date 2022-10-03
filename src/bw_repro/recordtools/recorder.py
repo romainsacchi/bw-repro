@@ -1,17 +1,25 @@
 import logging
 import os
+import shutil
 from pathlib import Path
 from bw2calc import LCA, MultiLCA, MonteCarloLCA, MultiMonteCarlo, log_utils, utils
 from subprocess import run
 import brightway2 as bw
+from . import folder_utils
 import numpy as np
 
-PATH = Path().resolve() / "workflow" / "resources"
+PATH_HIDDEN = ".bw_repro/"
+PATH_RESOURCES = Path().resolve() / PATH_HIDDEN / "resources"
+folder_utils.create_folders()
+folder_utils.create_snakefile()
+folder_utils.create_script()
+
+
+
 """
     Create Conda environemnt.yaml file 
 """
 def dump_and_save_environment(dirpath):
-    print(Path(dirpath))
     with open(Path(dirpath).parent / "envs" / f"environment.yaml", "w") as f:
         # Call conda from python
         proc = run(["conda", "envs", "export", "--name", os.environ['CONDA_DEFAULT_ENV'], "--no-builds"], text=True, capture_output=True)
@@ -104,24 +112,31 @@ def clean_the_mess(dirpath):
 """
 def end_record(dirpath):
     clean_the_mess(dirpath)
+    folder_utils.create_zip()
+    shutil.rmtree(PATH_HIDDEN)
     # Merge environment and calculation files
     # merge_json_files(dirpath, filename)
 
 def record(bw_module: bw, config:dict=None):
-    start_record(dirpath=config["logger_path"])
+    PATH_LOGGER = PATH_HIDDEN + config["logger_path"]
+    start_record(dirpath=PATH_LOGGER)
 
     # Here we have code that converts the bw package
-    create_logger(dirpath=config["logger_path"], name = config["name"])
+    create_logger(dirpath=PATH_LOGGER, name = config["name"])
     bw_module.LCA= upgrade_LCA(config)
     bw_module.MonteCarloLCA= upgrade_MonteCarloLCA(config)
 
     #TODO: do this
     # bw_module= upgrade_MultiLCA(config)
     # bw_module.MultiMonteCarlo= upgrade_MultiMonteCarlo(config)
-    
+    bw_module.export_record = export_record
     # add a custom root to save change
-    bw.repro = { "save": lambda : end_record(config["logger_path"])}
+    bw.repro = { "save": lambda : end_record(PATH_HIDDEN + config["logger_path"])}
     return bw
+
+def export_record(config):
+    end_record(PATH_HIDDEN + config["logger_path"])
+
 
 """
     Create a file handler to write bw2calc operations into a file.
@@ -147,20 +162,18 @@ def upgrade_LCA(config):
             self.logger = logging.getLogger(config["name"])
 
         def lcia(self, *args, **kwargs):
-            print(PATH)
             demand_dict = utils.wrap_functional_unit(self.demand)
             db_to_export = bw.Database(demand_dict[0]["database"])
             db_dependencies = bw.databases[demand_dict[0]["database"]]["depends"]
             bw2package_name = f"{demand_dict[0]['database']}"
+            #TODO: include an ecoinvent version detector using "./data/ei_id.yml"
             filepath = bw.BW2Package.export_obj(
                 obj=db_to_export,
                 filename= bw2package_name,
-                # folder="/home/glarrea/bw-repro/dev")
-                folder=PATH,
+                # folder="/home/glarrea/bw_repro/dev")
+                folder=PATH_RESOURCES,
             )
-            print(filepath)
             filepath = Path(filepath).name
-            print(filepath)
             #TODO: fix this
             self.calc_config = {
                     "databases": [
@@ -225,7 +238,7 @@ def upgrade_MonteCarloLCA(config):
             demand_dict = utils.wrap_functional_unit(self.demand)
             db_dependencies = bw.databases[demand_dict[0]["database"]]["depends"]
             bw2package_name = f"{demand_dict[0]['database']}.bw2package"
-
+            # TODO: include an ecoinvent version detector using "./data/ei_id.yml"
             self.calc_config = {
                     "databases": [
                         {
@@ -264,37 +277,4 @@ def upgrade_MonteCarloLCA(config):
                              )
     return newMonteCarloLCA
 
-def test():
-    import brightway2 as bw
-    log_config = {
-        "logger_path": "workflow/config",
-        "name": "experiment"
-    }
-    bw = record(bw, log_config)
-
-    bw.projects.set_current("ABM_SN")
-    meth = bw.methods.random()
-    process = bw.Database('test_db').random()
-
-    def do_random_lca():
-        fu = {process: 1}
-        lca = bw.LCA(fu, meth)
-        lca.lci()
-        lca.lcia()
-
-    def do_random_mlca():
-        fu = {process: 1}
-        mlca = bw.MonteCarloLCA(fu, meth, seed=0)
-        for i in range(3):
-            next(mlca)
-        mlca.record()
-
-    for _ in range(0, 5):
-        do_random_lca()
-        do_random_mlca()
-
-    bw.repro["save"]()
-
-if __name__ == "__main__":
-    test()
 
