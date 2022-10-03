@@ -2,9 +2,12 @@
 Changelog
 =========
 
-Version 0.1
-===========
+Unreleased
+==========
 
-- Feature A added
-- FIX: nasty bug #1729 fixed
-- add your changes here!
+Added
+-----
+
+- Ability to record LCA and MonteCarloLCA
+- Reading a record and reproduce result
+- Documentaion generation
