@@ -2,7 +2,7 @@ import bw2data
 import bw2io
 
 import bw2calc
-from eidl import (get_ecoinvent, eidlstorage)
+from eidl import get_ecoinvent, eidlstorage
 from pathlib import Path
 import json
 
@@ -30,9 +30,7 @@ def install_dbs(db):
         print("Installing database from resources...")
         # import local db
         print(f"Importing {db['name']}...")
-        bw2io.BW2Package.import_file(
-            RESOURCES_PATH / db["file name"]
-        )
+        bw2io.BW2Package.import_file(RESOURCES_PATH / db["file name"])
 
     else:
         if "ecoinvent" in db["name"]:
@@ -60,8 +58,13 @@ def run_lca(lca_setup):
         for dependency in db["depends on"]:
             if dependency not in bw2data.databases:
                 print(f"Installing {dependency}...")
-                install_dbs([d for d in lca_setup["calc_config"]["databases"]
-                             if d["name"]==dependency][0])
+                install_dbs(
+                    [
+                        d
+                        for d in lca_setup["calc_config"]["databases"]
+                        if d["name"] == dependency
+                    ][0]
+                )
 
     # fetch activity
     # it should be in the form of {act: 1}
@@ -87,4 +90,3 @@ def run_lca(lca_setup):
 with open(RESULTS_PATH / "results.txt", "w") as f:
     for lca_setup in config:
         f.write(str(run_lca(lca_setup)))
-
