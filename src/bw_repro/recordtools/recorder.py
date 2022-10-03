@@ -7,6 +7,8 @@ from subprocess import run
 import brightway2 as bw
 from . import folder_utils
 import numpy as np
+import yaml
+
 
 PATH_HIDDEN = ".bw_repro/"
 PATH_RESOURCES = Path().resolve() / PATH_HIDDEN / "resources"
@@ -19,11 +21,38 @@ folder_utils.create_script()
 """
     Create Conda environemnt.yaml file 
 """
+
+def dependency_filter(enviroment_file_path):
+    """
+    Filters dependencies to avoid incompatibilities with different architectures or unnecessary dependencies.
+    Must be improved.
+    """
+    with open(enviroment_file_path, "r") as stream:
+        env_dict = yaml.safe_load(stream)
+
+    words = ["bw", "brightway", "eidl", "python="]
+    new_dependencies = [] 
+    for word in words:
+        for dependency in env_dict["dependencies"]:
+            if word in dependency:
+                new_dependencies.append(dependency)
+    env_dict["dependencies"] = new_dependencies
+
+    with open(enviroment_file_path, 'w') as output_file:
+        yaml.dump(env_dict, output_file)
+
+
 def dump_and_save_environment(dirpath):
-    with open(Path(dirpath).parent / "envs" / f"environment.yaml", "w") as f:
+
+    yaml_path = Path(dirpath).parent / "envs" / f"environment.yaml"
+    
+    with open(yaml_path, "w") as f:
         # Call conda from python
-        proc = run(["conda", "envs", "export", "--name", os.environ['CONDA_DEFAULT_ENV'], "--no-builds"], text=True, capture_output=True)
+        proc = run(["conda", "env", "export", "--name", os.environ['CONDA_DEFAULT_ENV'], "--no-builds"], text=True, capture_output=True)
         f.write(proc.stdout)
+
+    dependency_filter(yaml_path)
+
 
 """
     Start recording data.
