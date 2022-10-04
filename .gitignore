@@ -41,6 +41,11 @@ MANIFEST
 pip-log.txt
 pip-delete-this-directory.txt
 
+#git files
+
+.gitconfig
+
+
 # Unit tests / coverage reports
 htmlcov/
 .tox/
