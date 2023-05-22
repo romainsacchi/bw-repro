@@ -1,0 +1,40 @@
+- calc_config:
+    databases:
+    - available in resources: false
+      depends on:
+      - biosphere3
+      file name: Here comes the path of the DataPackage (WIP)
+      name: ei39
+  calc_name: LCA
+  database_filepath:
+  - /home/larrea_30718/.local/share/Brightway3/bw25.a3a6b830/processed/biosphere3.5d405d71.zip
+  - /home/larrea_30718/.local/share/Brightway3/bw25.a3a6b830/processed/ei39.f1469ad5.zip
+  demand:
+  - amount: 1
+    id: 16805
+  demand_repr: '''biogas purification to biomethane by membrane technique'' (cubic
+    meter, RoW, None)'
+  function: lcia
+  functional_unit_amount: 1
+  message: Performing LCIA
+  method:
+  - EDIP 2003
+  - non-renewable resources
+  - gold
+  method_metadata:
+    abbreviation: edip-2003ng.a8994b88c153ad065182f7e6cf1a7166
+    description: ''
+    filename: LCIA_Implementation_3.9.xlsx
+    geocollections:
+    - world
+    num_cfs: 10
+    unit: kilogram
+  normalization: null
+  normalization_metadata: null
+  score: 7.741914474157605e-09
+  seed:
+    use_arrays: false
+    use_distributions: false
+  time: '2023-05-22 16:08:27.166779'
+  weighting: null
+  weighting_metadata: null

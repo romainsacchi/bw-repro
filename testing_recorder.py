@@ -1,6 +1,5 @@
 from bw_repro.recordtools.recorder import record
 
-
 def test():
     import brightway2 as bw
 
@@ -29,7 +28,6 @@ def test():
         do_random_mlca()
 
     bw.export_record(log_config)
-
 
 if __name__ == "__main__":
     test()

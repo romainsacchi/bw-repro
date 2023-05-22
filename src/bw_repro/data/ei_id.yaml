@@ -1,7 +1,12 @@
 # this file stores unique activity codes
 # to help identifying the ecoinvent database
 # being used.
----
+
+67965de4-413c-552b-b1c4-343c6fd7ed32:
+  name: ecoinvent
+  version: 3.9
+  system model: cut-off
+
 008fa9e6170d198af1ac25d3d3f4fca6:
   name: ecoinvent
   version: 3.8

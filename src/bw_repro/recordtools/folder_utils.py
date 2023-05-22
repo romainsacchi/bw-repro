@@ -30,12 +30,11 @@ def create_folders():
     scripts_path.mkdir(parents=True, exist_ok=True)
 
 
-def create_zip():
+def create_zip(output_path):
 
-    output_filename = "output"
+    # output_filename = "outpzut"
     dir_name = PATH / ".bw_repro/"
-    shutil.make_archive(output_filename, "zip", dir_name)
-
+    shutil.make_archive(output_path, "zip", dir_name)
 
 def create_snakefile():
 
