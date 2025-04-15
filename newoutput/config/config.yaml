@@ -1,0 +1,128 @@
+- calc_config:
+    databases:
+    - available in resources: false
+      depends on:
+      - biosphere3
+      file name: Here comes the path of the DataPackage (WIP)
+      name: ecoinvent36
+  calc_name: LCA
+  calculation_time: 0.0029480457305908203
+  database_filepath:
+  - /home/larrea_30718/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/biosphere3.5d405d7124beac53e64a4cd0f9e012f4.npy
+  - /home/larrea_30718/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/ecoinvent36.9bf3de23724dff4f3fa839f9a13ed98e.npy
+  demand:
+  - amount: 1
+    code: a0ae0b13300c7cec0c7ad2a6544837d6
+    database: ecoinvent36
+  demand_repr: '''market for municipal solid waste'' (kilogram, BA, None)'
+  function: lcia
+  functional_unit_amount: 1
+  message: Performing LCIA
+  method:
+  - EF v3.0 no LT
+  - 'ecotoxicity: freshwater, organics no LT'
+  - comparative toxic unit for ecosystems (CTUe)  no LT
+  method_metadata:
+    abbreviation: ef-v30-no-ltec.7412f3e65371b2f890c4ed008aee1ad9
+    description: ''
+    filename: LCIA_Implementation_3.8.xlsx
+    num_cfs: 1594
+    unit: CTUe
+  normalization: null
+  normalization_metadata: null
+  score: -0.07989080746528822
+  seed:
+    seed: null
+  time: '2023-05-22 17:00:37.068464'
+  weighting: null
+  weighting_metadata: null
+- calc_name: MonteCarloLCA
+  database_filepath:
+  - /home/larrea_30718/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/biosphere3.5d405d7124beac53e64a4cd0f9e012f4.npy
+  - /home/larrea_30718/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/ecoinvent36.9bf3de23724dff4f3fa839f9a13ed98e.npy
+  demand:
+  - amount: 1
+    code: a0ae0b13300c7cec0c7ad2a6544837d6
+    database: ecoinvent36
+  function: load_data
+  message: Performing MonteCarloLCA -test-
+  method:
+  - EF v3.0 no LT
+  - 'ecotoxicity: freshwater, organics no LT'
+  - comparative toxic unit for ecosystems (CTUe)  no LT
+  method_filepath:
+  - /home/larrea_30718/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/ef-v30-no-ltec.7412f3e65371b2f890c4ed008aee1ad9.npy
+  normalization: null
+  normalization_filepath: null
+  presamples: None
+  score_mean: -0.05503373185220742
+  score_std: 0.03128348216071562
+  seed: 273539998
+  simulations: 3
+  time: '2023-05-22 17:00:38.166079'
+  weighting: null
+  weighting_filepath: null
+- calc_config:
+    databases:
+    - available in resources: false
+      depends on:
+      - biosphere3
+      file name: Here comes the path of the DataPackage (WIP)
+      name: ecoinvent36
+  calc_name: LCA
+  calculation_time: 0.0021317005157470703
+  database_filepath:
+  - /home/larrea_30718/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/biosphere3.5d405d7124beac53e64a4cd0f9e012f4.npy
+  - /home/larrea_30718/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/ecoinvent36.9bf3de23724dff4f3fa839f9a13ed98e.npy
+  demand:
+  - amount: 1
+    code: a0ae0b13300c7cec0c7ad2a6544837d6
+    database: ecoinvent36
+  demand_repr: '''market for municipal solid waste'' (kilogram, BA, None)'
+  function: lcia
+  functional_unit_amount: 1
+  message: Performing LCIA
+  method:
+  - EF v3.0 no LT
+  - 'ecotoxicity: freshwater, organics no LT'
+  - comparative toxic unit for ecosystems (CTUe)  no LT
+  method_metadata:
+    abbreviation: ef-v30-no-ltec.7412f3e65371b2f890c4ed008aee1ad9
+    description: ''
+    filename: LCIA_Implementation_3.8.xlsx
+    num_cfs: 1594
+    unit: CTUe
+  normalization: null
+  normalization_metadata: null
+  score: -0.07989080746528822
+  seed:
+    seed: null
+  time: '2023-05-22 17:00:38.683213'
+  weighting: null
+  weighting_metadata: null
+- calc_name: MonteCarloLCA
+  database_filepath:
+  - /home/larrea_30718/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/biosphere3.5d405d7124beac53e64a4cd0f9e012f4.npy
+  - /home/larrea_30718/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/ecoinvent36.9bf3de23724dff4f3fa839f9a13ed98e.npy
+  demand:
+  - amount: 1
+    code: a0ae0b13300c7cec0c7ad2a6544837d6
+    database: ecoinvent36
+  function: load_data
+  message: Performing MonteCarloLCA -test-
+  method:
+  - EF v3.0 no LT
+  - 'ecotoxicity: freshwater, organics no LT'
+  - comparative toxic unit for ecosystems (CTUe)  no LT
+  method_filepath:
+  - /home/larrea_30718/.local/share/Brightway3/ABM_SN.9db736abd81d9c98682da465149f6c1f/processed/ef-v30-no-ltec.7412f3e65371b2f890c4ed008aee1ad9.npy
+  normalization: null
+  normalization_filepath: null
+  presamples: None
+  score_mean: -0.09992019362490757
+  score_std: 0.02738155126463615
+  seed: 1890238106
+  simulations: 3
+  time: '2023-05-22 17:00:39.670412'
+  weighting: null
+  weighting_filepath: null

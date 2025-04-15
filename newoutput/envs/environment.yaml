@@ -1,0 +1,22 @@
+channels:
+- cmutel
+- defaults
+dependencies:
+- python=3.8.16
+- pip:
+  - bw-migrations==0.2
+  - bw-processing==0.8.2
+  - bw-repro==0.0.post1.dev43+g900a970.d20230522
+  - bw2analyzer==0.10
+  - bw2calc==1.8.2
+  - bw2data==3.6.6
+  - bw2io==0.8.7
+  - bw2parameters==1.1.0
+  - brightway2==2.4
+  - ipython==8.8.0
+  - numpy==1.24.3
+  - pandas==1.5.3
+  - pypardiso==0.4.2
+  - scipy==1.8.0
+name: pacha_dev
+prefix: /home/larrea_30718/miniconda3/envs/pacha_dev
